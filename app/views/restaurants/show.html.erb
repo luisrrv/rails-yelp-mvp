@@ -1,0 +1,22 @@
+<div class="container m-4 p-3">
+  <h1><%= @restaurant.name %></h1>
+  <div class="container info">
+    <h3><%= @restaurant.category %></h3>
+    <p><%= @restaurant.address %></p>
+    <p><%= @restaurant.phone_number %></p>
+  </div>
+  <div class="container reviews">
+    <div class='container d-flex gap-3 align-items-center'>
+      <h2>Reviews</h2>
+      <%= link_to new_restaurant_review_path(@restaurant), class: 'btn btn-light px-3' do %>
+      <p>+</p>
+      <% end %>
+    </div>
+    <div class="container">
+      <% @reviews.each do |review| %>
+        <h3><%= review.rating %></h3>
+        <p><%= review.content %></p>
+      <% end %>
+    </div>
+  </div>
+</div>
