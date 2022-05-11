@@ -1,22 +1,52 @@
-<div class="container m-4 p-3">
-  <h1><%= @restaurant.name %></h1>
-  <div class="container info">
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://loremflickr.com/640/360/food);">
+  <div class="container">
+    <h1><%= @restaurant.name %></h1>
     <h3><%= @restaurant.category %></h3>
     <p><%= @restaurant.address %></p>
     <p><%= @restaurant.phone_number %></p>
+    <h3>$$</h3>
   </div>
-  <div class="container reviews">
+</div>
+
+<div class="container m-4 p-3 d-flex">
+  <div class="container p-3">
     <div class='container d-flex gap-3 align-items-center'>
-      <h2>Reviews</h2>
-      <%= link_to new_restaurant_review_path(@restaurant), class: 'btn btn-light px-3' do %>
-      <p>+</p>
-      <% end %>
+      <h3>Reviews</h3>
+      <%# <%= link_to new_restaurant_review_path(@restaurant), class: 'btn px-3' do %>
+      <%# <h3>+</h3> %>
+      <%# <% end %>
     </div>
+
     <div class="container">
-      <% @reviews.each do |review| %>
-        <h3><%= review.rating %></h3>
-        <p><%= review.content %></p>
+      <% if @restaurant.reviews.count == 0 %>
+        <p class='text-secondary'>No reviews yet</p>
+      <% else %>
+        <% @restaurant.reviews.each do |review| %>
+          <div class="container card rounded p-3 mb-3">
+            <div class="d-flex mb-3 text-warning">
+              <% review.rating.times do %>
+                <i class="fas fa-star"></i>
+              <% end %>
+              <% (5 - review.rating).times do %>
+                <i class="far fa-star"></i>
+              <% end %>
+            </div>
+            <p><%= review.content %></p>
+          </div>
+        <% end %>
       <% end %>
     </div>
+  </div>
+  <div class="container p-3">
+    <h3>Add Review</h3>
+    <%= simple_form_for [@restaurant, @review] do |f| %>
+      <div class="star-rating mb-4">
+        <% 5.times do |i| %>
+          <input type="radio" name="review[rating]" value="<%= i + 1 %>" <%= "checked" if i == 2 %> />
+        <% end %>
+      </div>
+      <%= f.input :content %>
+      <%= f.submit "Submit", class: 'btn btn-warning mt-2' %>
+    <% end %>
   </div>
 </div>

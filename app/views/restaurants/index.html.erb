@@ -1,12 +1,20 @@
 <div class="container p-3">
   <h1>Restaurants</h1>
-  <% @restaurants.each do |restaurant| %>
-    <div class="card">
-      <%= link_to restaurant_path(restaurant) do %>
-        <h3><%= restaurant.name %></h3>
-      <% end %>
-      <p><%= restaurant.category %></p>
+  <div class="cards">
+    <% @restaurants.each do |restaurant| %>
+    <div class="card-trip mt-3">
+      <img src="https://loremflickr.com/640/360/food" />
+      <div class="card-trip-infos">
+        <div>
+          <%= link_to restaurant_path(restaurant) do %>
+            <h3><%= restaurant.name %></h3>
+          <% end %>
+          <p><%= restaurant.category %></p>
+        </div>
+        <h2 class="card-trip-pricing">$$</h2>
     </div>
-  <% end %>
+  </div>
+    <% end %>
+  </div>
 
 </div>
